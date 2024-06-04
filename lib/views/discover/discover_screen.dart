@@ -84,7 +84,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          body: Obx(() => load.value
+          body: Obx(() => load.value || controller.brands.isEmpty
               ? const Center(
                   child: CupertinoActivityIndicator(),
                 )
@@ -95,46 +95,67 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     DiscoverBrands(),
                     SpaceUtils.verticalSpace(10),
                     Expanded(
-                      child: Obx(() => controller.products.isEmpty? const Center(
-                        child: CupertinoActivityIndicator(),
-                      ) : controller.selectedBrandId.value != 'All' && controller.filteredProducts.isEmpty?  Center(
-                        child: TextUtils.text('No Product Found'),
-                      ) : GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 4.0,
-                            mainAxisSpacing: 4.0,
-                            childAspectRatio: 0.7
-                          ),
-                          itemCount: null,
-                          itemBuilder: (context, index) {
+                      child: Obx(() => controller.products.isEmpty
+                          ? const Center(
+                              child: CupertinoActivityIndicator(),
+                            )
+                          : controller.selectedBrandId.value != 'All' &&
+                                  controller.filteredProducts.isEmpty
+                              ? Center(
+                                  child: TextUtils.text('No Product Found'),
+                                )
+                              : GridView.builder(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 4.0,
+                                          mainAxisSpacing: 4.0,
+                                          childAspectRatio: 0.7),
+                                  itemCount: null,
+                                  itemBuilder: (context, index) {
+                                    BrandModel? brand;
 
-                            BrandModel? brand;
-
-                            return Obx(() {
-                              if(controller.selectedBrandId.value == 'All'){
-                                controller.brands.forEach((element){
-                                  if(element.id == controller.products[index % controller.products.length].brandId){
-                                    brand = element;
-                                  }
-                                });
-                                return ProductCard(product: controller.products[index % controller.products.length], brand: brand!,);
-                              }else {
-                                controller.brands.forEach((element) {
-                                  if (element.id ==
-                                      controller.filteredProducts[index %
-                                          controller.filteredProducts.length]
-                                          .brandId) {
-                                    brand = element;
-                                  }
-                                });
-                                return ProductCard(
-                                  product: controller.filteredProducts[index %
-                                      controller.filteredProducts.length],
-                                  brand: brand!,);
-                              }
-                            });
-                          })),
+                                    return Obx(() {
+                                      if (controller.selectedBrandId.value ==
+                                          'All') {
+                                        controller.brands.forEach((element) {
+                                          if (element.id ==
+                                              controller
+                                                  .products[index %
+                                                      controller
+                                                          .products.length]
+                                                  .brandId) {
+                                            brand = element;
+                                          }
+                                        });
+                                        print(brand);
+                                        return ProductCard(
+                                          product: controller.products[index %
+                                              controller.products.length],
+                                          brand: brand!,
+                                        );
+                                      } else {
+                                        controller.brands.forEach((element) {
+                                          if (element.id ==
+                                              controller
+                                                  .filteredProducts[index %
+                                                      controller
+                                                          .filteredProducts
+                                                          .length]
+                                                  .brandId) {
+                                            brand = element;
+                                          }
+                                        });
+                                        return ProductCard(
+                                          product: controller.filteredProducts[
+                                              index %
+                                                  controller
+                                                      .filteredProducts.length],
+                                          brand: brand!,
+                                        );
+                                      }
+                                    });
+                                  })),
                     )
                   ],
                 ))),

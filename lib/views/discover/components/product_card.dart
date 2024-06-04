@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,9 @@ import '../../product_detail/product_detail_screen.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
-    super.key, required this.product, required this.brand,
+    super.key,
+    required this.product,
+    required this.brand,
   });
 
   final Product product;
@@ -26,22 +27,22 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-
   final controller = Get.find<DiscoverController>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-
-
   }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => ProductDetailScreen());
+        Get.to(() => ProductDetailScreen(
+              product: widget.product,
+              brand: widget.brand,
+            ));
       },
       child: Container(
         margin: EdgeInsets.all(20),
@@ -65,7 +66,10 @@ class _ProductCardState extends State<ProductCard> {
                       child: SizedBox(
                           width: 24.w,
                           height: 24.h,
-                          child: CachedNetworkImage(imageUrl: widget.brand.img, color: ColorUtils.lightGreyColor,)),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.brand.img,
+                            color: ColorUtils.lightGreyColor,
+                          )),
                     ),
                   ),
                   Align(
@@ -75,7 +79,9 @@ class _ProductCardState extends State<ProductCard> {
                       child: SizedBox(
                           width: 120.w,
                           height: 85.h,
-                          child: CachedNetworkImage(imageUrl: widget.product.images[0],)),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.product.images[0],
+                          )),
                     ),
                   )
                 ],
@@ -90,9 +96,7 @@ class _ProductCardState extends State<ProductCard> {
                 children: [
                   SizedBox(
                       width: 150.w,
-                      child: TextUtils.text(
-                          widget.product.name,
-                          fontSize: 12)),
+                      child: TextUtils.text(widget.product.name, fontSize: 12)),
                   SpaceUtils.verticalSpace(5),
                   Row(
                     children: [
@@ -103,12 +107,10 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                       SpaceUtils.horizontalSpace(5),
                       TextUtils.text('4.5',
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold),
+                          fontSize: 11, fontWeight: FontWeight.bold),
                       SpaceUtils.horizontalSpace(5),
                       TextUtils.text('(1045 Reviews)',
-                          color: ColorUtils.lightGreyColor,
-                          fontSize: 11)
+                          color: ColorUtils.lightGreyColor, fontSize: 11)
                     ],
                   ),
                   SpaceUtils.verticalSpace(5),
