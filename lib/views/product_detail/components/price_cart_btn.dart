@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shoesly/controllers/product_details_controller.dart';
 import 'package:shoesly/models/product_model.dart';
 import 'package:shoesly/utils/color_utils.dart';
 import 'package:shoesly/utils/size_utils.dart';
@@ -9,12 +10,14 @@ import 'package:shoesly/utils/text_utils.dart';
 import 'package:shoesly/views/product_detail/components/item_quantity_sheet.dart';
 
 class ProductPriceAndCartBtn extends StatelessWidget {
-  const ProductPriceAndCartBtn({
+  ProductPriceAndCartBtn({
     super.key,
     required this.product,
   });
 
   final Product product;
+  final controller = Get.find<ProductDetailsController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +52,23 @@ class ProductPriceAndCartBtn extends StatelessWidget {
             ],
           ),
           InkWell(
-            onTap: () {
-              Get.bottomSheet(
-                  backgroundColor: Colors.transparent, ItemQuantitySheet());
+            onTap: () async {
+              if (controller.selectedSize.isEmpty) {
+                Get.snackbar('Shoe Size', 'Please select shoe size',
+                    backgroundColor: ColorUtils.redColor);
+              } else if (controller.selectedColor.isEmpty) {
+                Get.snackbar('Shoe color', 'Please select shoe color',
+                    backgroundColor: ColorUtils.redColor);
+              } else {
+
+
+                  Get.bottomSheet(
+                      backgroundColor: Colors.transparent,
+                      ItemQuantitySheet(
+                        product: product,
+                      ));
+
+              }
             },
             child: Container(
               height: 50.h,

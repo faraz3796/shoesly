@@ -72,6 +72,7 @@ class AddedToCartSheet extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
+                  Get.close(1);
                   Get.to(() => CartScreen());
                 },
                 child: Container(

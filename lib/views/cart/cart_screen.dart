@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+import 'package:shoesly/controllers/cart_controller.dart';
 import 'package:shoesly/utils/color_utils.dart';
 import 'package:shoesly/utils/space_utils.dart';
 import 'package:shoesly/utils/text_utils.dart';
@@ -18,6 +21,21 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  RxBool load = true.obs;
+  final controller = Get.find<CartController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+      controller.getCart().then((v) {
+        load.value = false;
+        controller.totalPrice.value = 0.0;
+      });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,17 +48,23 @@ class _CartScreenState extends State<CartScreen> {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                CartProductCard()
-              ],
-            ),
+            child: Obx(() => load.value
+                ? SizedBox(
+              height: Get.height *0.8,
+                  child: Center(
+                      child: CupertinoActivityIndicator(),
+                    ),
+                )
+                : Column(
+                    children: [
+                      for (int i = 0; i < controller.cartItems.length; i++)
+                        CartProductCard(cart: controller.cartItems[i],)
+                    ],
+                  )),
           ),
         ),
-        bottomNavigationBar: TotalAndCheckoutBn(),
+        bottomNavigationBar: Obx(() => load.value? SizedBox() :  TotalAndCheckoutBn()),
       ),
     );
   }
 }
-
-

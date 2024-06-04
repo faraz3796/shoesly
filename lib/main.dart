@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoesly/controllers/analytics_controller.dart';
+import 'package:shoesly/controllers/cart_controller.dart';
+import 'package:shoesly/controllers/device_controller.dart';
 import 'package:shoesly/utils/color_utils.dart';
 import 'package:shoesly/utils/size_utils.dart';
 import 'package:shoesly/views/discover/discover_screen.dart';
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   AnalyticsController analyticsController = Get.put(AnalyticsController());
+  final deviceController = Get.put(DeviceController());
+  final cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

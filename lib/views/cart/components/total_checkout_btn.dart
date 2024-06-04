@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shoesly/controllers/cart_controller.dart';
 import 'package:shoesly/utils/size_utils.dart';
 import 'package:shoesly/views/order_summary/order_summary_screen.dart';
 
@@ -9,9 +10,11 @@ import '../../../utils/space_utils.dart';
 import '../../../utils/text_utils.dart';
 
 class TotalAndCheckoutBn extends StatelessWidget {
-  const TotalAndCheckoutBn({
+   TotalAndCheckoutBn({
     super.key,
   });
+
+  final controller = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +44,8 @@ class TotalAndCheckoutBn extends StatelessWidget {
               TextUtils.text('Grand Total',
                   fontSize: 12, color: ColorUtils.lightGreyColor),
               SpaceUtils.verticalSpace(4),
-              TextUtils.text('\$235.00',
-                  fontSize: 20, fontWeight: FontWeight.bold),
+              Obx(() =>  TextUtils.text('\$${controller.totalPrice.value.toStringAsFixed(2)}',
+                  fontSize: 20, fontWeight: FontWeight.bold)),
             ],
           ),
           InkWell(

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:shoesly/controllers/product_details_controller.dart';
 import 'package:shoesly/models/brandModel.dart';
 import 'package:shoesly/models/product_model.dart';
 import 'package:shoesly/utils/size_utils.dart';
@@ -25,16 +26,26 @@ import 'components/added_to_cart_sheet.dart';
 import 'components/product_reviews.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen(
+   ProductDetailScreen(
       {super.key, required this.product, required this.brand});
 
   final Product product;
   final BrandModel brand;
+
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final controller = Get.put(ProductDetailsController());
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
