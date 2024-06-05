@@ -33,7 +33,7 @@ class ProductNameRating extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < product.rating; i++)
                       SvgPicture.asset(
                         'assets/svgs/star.svg',
                         width: 12.w,
@@ -43,9 +43,9 @@ class ProductNameRating extends StatelessWidget {
                 ),
               ),
               SpaceUtils.horizontalSpace(4),
-              TextUtils.text('4.5', fontSize: 11, fontWeight: FontWeight.bold),
+              TextUtils.text('${product.rating}', fontSize: 11, fontWeight: FontWeight.bold),
               SpaceUtils.horizontalSpace(4),
-              TextUtils.text('(1045 Reviews)',
+              TextUtils.text('(${product.reviewsNo} Reviews)',
                   fontSize: 11, color: ColorUtils.lightGreyColor),
             ],
           ),

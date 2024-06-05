@@ -61,4 +61,32 @@ class CartController extends GetxController {
       'products' : FieldValue.arrayRemove([item.toJson()])
     });
   }
+
+  Future<void> updateProductQuantity(String productId, int newQuantity) async {
+    final doc =
+    await db.doc(deviceController.deviceId.value.toString()).get();
+
+    try {
+      if (doc.exists) {
+        List<dynamic> products = doc.get('products');
+
+        for (var product in products) {
+          if (product['productId'] == productId) {
+            product['quantity'] = newQuantity;
+            break;
+          }
+        }
+
+        await db.doc(deviceController.deviceId.value).update({
+          'products': products,
+        });
+        print("Product quantity updated successfully!");
+      } else {
+        print("Document does not exist!");
+      }
+    } catch (e) {
+      print("Error updating product quantity: $e");
+    }
+  }
 }
+

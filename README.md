@@ -1,16 +1,29 @@
-# shoesly
+Flutter version : 3.22.1
 
-A new Flutter project.
+Project Setup:
+ - Download the flutter version 3.22.1 from https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_3.22.1-stable.zip,
+ - Follow the step in flutter documentation on flutter website to setup in your system 
+ - setup flutter path
+ - Install android studio and cmd-line tools.
+ - install dart and flutter plugin in android studio
+ - create a virtual device or use physical device
+ - open the project in android studio or vs code
+ - Run flutter pub get command in terminal
+ - Run flutter run command in terminal
 
-## Getting Started
+Assumption Made:
+ - model of product and brand from Design
+ - colors will be added in hex color
+ - All the idea of model got from design
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Challanges
+ - As there is no requirement document so it was challenging to make model products and brand
+ - From the design it was difficult to design database
+ - store cart data without any login
+ - Responsiveness for that i used screen utils.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Additional
+ - Workload from current company was much so i have to work overtime there so didn't add any additional feature. but if required i can add as many as i can. 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+

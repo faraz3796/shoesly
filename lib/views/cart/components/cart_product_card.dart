@@ -119,7 +119,7 @@ class _CartProductCardState extends State<CartProductCard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextUtils.text('${brand.title} - ${widget.cart.size}',
+                        TextUtils.text('${brand.title} . ${widget.cart.size}',
                             fontSize: 12, color: ColorUtils.lightGreyColor),
                         Container(
                           width: 25.w,
@@ -147,10 +147,11 @@ class _CartProductCardState extends State<CartProductCard> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   if(quantity.value > 1) {
                                     quantity --;
                                     controller.totalPrice.value = controller.totalPrice.value - product.price;
+                                    await controller.updateProductQuantity(product.id, quantity.value);
                                   }
                                 },
                                 child: Obx(() =>   Icon(
@@ -164,9 +165,10 @@ class _CartProductCardState extends State<CartProductCard> {
                                   fontWeight: FontWeight.bold)),
                               SpaceUtils.horizontalSpace(8),
                               InkWell(
-                                onTap: (){
+                                onTap: () async {
                                   quantity.value ++;
                                   controller.totalPrice.value = controller.totalPrice.value + product.price;
+                                  await controller.updateProductQuantity(product.id, quantity.value);
                                 },
                                 child: Icon(
                                   Icons.add_circle_outline_outlined,

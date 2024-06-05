@@ -12,8 +12,8 @@ import '../../../utils/space_utils.dart';
 import '../../../utils/text_utils.dart';
 import '../../product_detail/product_detail_screen.dart';
 
-class ProductCard extends StatefulWidget {
-  const ProductCard({
+class ProductCard extends StatelessWidget {
+   ProductCard({
     super.key,
     required this.product,
     required this.brand,
@@ -22,26 +22,15 @@ class ProductCard extends StatefulWidget {
   final Product product;
   final BrandModel brand;
 
-  @override
-  State<ProductCard> createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
   final controller = Get.find<DiscoverController>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Get.to(() => ProductDetailScreen(
-              product: widget.product,
-              brand: widget.brand,
+              product: product,
+              brand: brand,
             ));
       },
       child: Container(
@@ -67,7 +56,7 @@ class _ProductCardState extends State<ProductCard> {
                           width: 24.w,
                           height: 24.h,
                           child: CachedNetworkImage(
-                            imageUrl: widget.brand.img,
+                            imageUrl: brand.img,
                             color: ColorUtils.lightGreyColor,
                           )),
                     ),
@@ -80,7 +69,7 @@ class _ProductCardState extends State<ProductCard> {
                           width: 120.w,
                           height: 85.h,
                           child: CachedNetworkImage(
-                            imageUrl: widget.product.images[0],
+                            imageUrl: product.images[0],
                           )),
                     ),
                   )
@@ -96,7 +85,7 @@ class _ProductCardState extends State<ProductCard> {
                 children: [
                   SizedBox(
                       width: 150.w,
-                      child: TextUtils.text(widget.product.name, fontSize: 12)),
+                      child: TextUtils.text(product.name, fontSize: 12)),
                   SpaceUtils.verticalSpace(5),
                   Row(
                     children: [
@@ -106,17 +95,17 @@ class _ProductCardState extends State<ProductCard> {
                         height: 12.h,
                       ),
                       SpaceUtils.horizontalSpace(5),
-                      TextUtils.text('4.5',
+                      TextUtils.text('${product.rating}',
                           fontSize: 11, fontWeight: FontWeight.bold),
                       SpaceUtils.horizontalSpace(5),
-                      TextUtils.text('(1045 Reviews)',
+                      TextUtils.text('(${product.reviewsNo})',
                           color: ColorUtils.lightGreyColor, fontSize: 11)
                     ],
                   ),
                   SpaceUtils.verticalSpace(5),
                   SizedBox(
                       width: 150.w,
-                      child: TextUtils.text('\$${widget.product.price}',
+                      child: TextUtils.text('\$${product.price}',
                           fontWeight: FontWeight.bold))
                 ],
               ),
